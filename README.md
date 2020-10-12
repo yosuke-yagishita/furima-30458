@@ -1,24 +1,87 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## usersテーブル
 
-Things you may want to cover:
+| Column            | Type    | Options    |
+| ----------------- | ------- | ---------- |
+| nickname          | string  | null:false |
+| email             | string  | null:false |
+| password          | string  | null:false |
+| family_name_kanji | string  | null:false |
+| first_name_kanji  | string  | null:false |
+| family_name_kana  | string  | null:false |
+| first_name_kana   | string  | null:false |
+| birth             | date    | null:false |
 
-* Ruby version
+### Association
 
-* System dependencies
+- has_many :items
+- has_many :comments
+- has_many :purchases
 
-* Configuration
+## itemsテーブル
 
-* Database creation
+| Column            | Type       | Options                      |
+| ----------------- | ---------- | ---------------------------- |
+| title             | string     | null:false                   |
+| explanation       | text       | null:false                   |
+| category_id       | integer    | null:false                   |
+| condition_id      | integer    | null:false                   |
+| delivery_type_id  | integer    | null:false                   |
+| delivery_day_id   | integer    | null:false                   |
+| prefecture_id     | integer    | null:false                   |
+| price             | integer    | null:false                   |
+| user              | references | foreign_key:true, null:false |
 
-* Database initialization
+### Association
 
-* How to run the test suite
+- belongs_to :user
+- has_many :comments
+- has_one :purchase
+- belongs_to_active_hash :category
+- belongs_to_active_hash :condition
+- belongs_to_active_hash :delivery_type
+- belongs_to_active_hash :delivery_day
+- belongs_to_active_hash :prefecture
 
-* Services (job queues, cache servers, search engines, etc.)
+## purchasesテーブル
 
-* Deployment instructions
+| Column            | Type       | Options                      |
+| ----------------- | ---------- | ---------------------------- |
+| user              | references | foreign_key:true, null:false |
+| item              | references | foreign_key:true, null:false |
 
-* ...
+### Association
+
+- belongs_to :user
+- belongs_to :item
+- has_one :buyer_info
+
+## buyer_infoテーブル
+
+| Column             | Type       | Options                      |
+| ------------------ | ---------- | ---------------------------- |
+| postal_code        | string     | null:false                   |
+| prefecture_id      | integer    | null:false                   |
+| city               | string     | null:false                   |
+| address_line       | string     | null:false                   |
+| building_name      | string     |                              |
+| phone_num          | string     | null:false                   |
+| purchase           | references | foreign_key:true, null:false | 
+
+### Association
+
+- belongs_to :purchase
+- belongs_to_active_hash :prefecture
+
+## commentsテーブル
+
+| Column            | Type       | Options                      |
+| ----------------- | ---------- | ---------------------------- |
+| text              | text       | nul:false                    |
+| user              | references | foreign_key:true, null:false |
+| item              | references | foreign_key:true, null:false |
+
+### Association
+- belongs_to :user
+- belongs_to :item
