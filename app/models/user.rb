@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :nickname,          presence: true
+  validates :nickname, presence: true
 
   with_options presence: true, format: { with: /\A[ぁ-んァ-ン一-龥]+\z/, message: 'Full-width characters' } do
     validates :family_name_kanji
@@ -16,9 +16,8 @@ class User < ApplicationRecord
     validates :first_name_kana
   end
 
-  validates :birth,             presence: true
+  validates :birth, presence: true
 
   PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
-  validates_format_of :password, with: PASSWORD_REGEX, message: 'Include both letters and numbers' 
-
+  validates_format_of :password, with: PASSWORD_REGEX, message: 'Include both letters and numbers'
 end
