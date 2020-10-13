@@ -6,12 +6,14 @@ class User < ApplicationRecord
 
   validates :nickname, presence: true
 
-  with_options presence: true, format: { with: /\A[ぁ-んァ-ン一-龥]+\z/, message: 'Full-width characters' } do
+  KANJI_REGEX = /\A[ぁ-んァ-ン一-龥]+\z/.freeze
+  with_options presence: true, format: { with: KANJI_REGEX, message: 'Full-width characters' } do
     validates :family_name_kanji
     validates :first_name_kanji
   end
 
-  with_options presence: true, format: { with: /\A[ァ-ン]+\z/, message: 'Full-width katakana characters' } do
+  KANA_REGEX = /\A[ァ-ン]+\z/.freeze
+  with_options presence: true, format: { with: KANA_REGEX, message: 'Full-width katakana characters' } do
     validates :family_name_kana
     validates :first_name_kana
   end
