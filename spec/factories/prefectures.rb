@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :delivery_day_id do
+  factory :prefecture do
     
   end
 end

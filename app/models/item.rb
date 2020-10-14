@@ -14,8 +14,8 @@ class Item < ApplicationRecord
             :user, :image, 
             presence: true
 
-  validates :category, :condition,:delivery_type,
-            :delivery_day, :prefecture,
+  validates :category_id, :condition_id, :delivery_type_id,
+            :delivery_day_id, :prefecture_id,
             numericality: { other_than: 1 }
             
 end
