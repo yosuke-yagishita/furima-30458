@@ -8,10 +8,10 @@ class Item < ApplicationRecord
   belongs_to_active_hash :delivery_type
   belongs_to_active_hash :delivery_day
   belongs_to_active_hash :prefecture
- 
+
   validates :title, :explanation, :category, :condition,
             :delivery_type, :delivery_day, :prefecture,
-            :user, :image, 
+            :user, :image,
             presence: true
 
   validates :category_id, :condition_id, :delivery_type_id,
@@ -19,11 +19,9 @@ class Item < ApplicationRecord
             numericality: { other_than: 1, message: 'Select' }
 
   validates :price,
-    presence: true,
-    numericality: { only_integer: true,
-                    greater_than_or_equal_to: 300,
-                    less_than_or_equal_to: 9999999,
-                    message: 'Out of setting range',
-                  }
-
+            presence: true,
+            numericality: { only_integer: true,
+                            greater_than_or_equal_to: 300,
+                            less_than_or_equal_to: 9_999_999,
+                            message: 'Out of setting range' }
 end

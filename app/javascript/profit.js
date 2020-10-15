@@ -1,6 +1,6 @@
 function profit() {
   const itemPrice = document.getElementById("item-price");
-  itemPrice.addEventListener("keyup", ()=> {
+  itemPrice.addEventListener("input", ()=> {
     const rate = 0.1
     const countVal = Math.round(itemPrice.value - (itemPrice.value * 100 * rate / 100)).toLocaleString();
     const profit = document.getElementById("profit");
@@ -8,4 +8,4 @@ function profit() {
   });
 }
 
-window.addEventListener("load", profit);
+setInterval(profit, 1000)
