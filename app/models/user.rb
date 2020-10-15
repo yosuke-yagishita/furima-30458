@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :items
+
   validates :nickname, presence: true
 
   KANJI_REGEX = /\A[ぁ-んァ-ン一-龥]+\z/.freeze
