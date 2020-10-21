@@ -11,4 +11,4 @@ function tax() {
   });
 }
 
-setInterval(tax, 1000)
+window.addEventListener("load", tax);

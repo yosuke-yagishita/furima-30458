@@ -1,8 +1,8 @@
 class PurchaseBuyerInfo
   include ActiveModel::Model
-  attr_accessor :postal_code, :prefecture_id, :city, :address_line, :building_name, :phone_num, :user_id, :item_id
+  attr_accessor :postal_code, :prefecture_id, :city, :address_line, :building_name, :phone_num, :user_id, :item_id, :token
 
-  validates :city, :address_line, presence: true
+  validates :city, :address_line, :token, presence: true
   validates :prefecture_id, numericality: { other_than: 1, message: 'Select' }
 
   POSTAL_CODE_REGEX = /\A[0-9]{3}-[0-9]{4}\z/.freeze
