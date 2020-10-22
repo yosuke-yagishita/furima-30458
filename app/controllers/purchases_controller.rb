@@ -3,9 +3,7 @@ class PurchasesController < ApplicationController
   before_action :set_item, only: [:index]
   def index
     @purchase_buyer_info = PurchaseBuyerInfo.new
-    if current_user.id == @item.user_id
-      redirect_to root_path
-    end
+    redirect_to root_path if current_user.id == @item.user_id
   end
 
   def create
@@ -23,14 +21,14 @@ class PurchasesController < ApplicationController
   private
 
   def purchase_params
-    params.require(:purchase_buyer_info).permit(:postal_code, :prefecture_id, :city, :address_line, :building_name, :phone_num).merge(user_id: current_user.id, item_id: params[:item_id],token: params[:token])
+    params.require(:purchase_buyer_info).permit(:postal_code, :prefecture_id, :city, :address_line, :building_name, :phone_num).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  # 自身のPAY.JPテスト秘密鍵を記述しましょう
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']  # 自身のPAY.JPテスト秘密鍵を記述しましょう
     Payjp::Charge.create(
-      amount: @item.price,  # 商品の値段
-      card: purchase_params[:token],    # カードトークン
+      amount: @item.price, # 商品の値段
+      card: purchase_params[:token], # カードトークン
       currency: 'jpy'                 # 通貨の種類（日本円）
     )
   end
@@ -38,6 +36,4 @@ class PurchasesController < ApplicationController
   def set_item
     @item = Item.find(params[:item_id])
   end
-
-
 end
