@@ -1,0 +1,2 @@
+module BuyerInfosHelper
+end

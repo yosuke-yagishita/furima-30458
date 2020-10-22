@@ -16,7 +16,6 @@
 ### Association
 
 - has_many :items
-- has_many :comments
 - has_many :purchases
 
 ## itemsテーブル
@@ -36,7 +35,6 @@
 ### Association
 
 - belongs_to :user
-- has_many :comments
 - has_one :purchase
 - belongs_to_active_hash :category
 - belongs_to_active_hash :condition
@@ -73,15 +71,3 @@
 
 - belongs_to :purchase
 - belongs_to_active_hash :prefecture
-
-## commentsテーブル
-
-| Column            | Type       | Options                      |
-| ----------------- | ---------- | ---------------------------- |
-| text              | text       | nul:false                    |
-| user              | references | foreign_key:true, null:false |
-| item              | references | foreign_key:true, null:false |
-
-### Association
-- belongs_to :user
-- belongs_to :item
