@@ -1,13 +1,12 @@
 class PurchasesController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_item, only: [:index]
+  before_action :authenticate_user!, only: :create
+  before_action :set_item, only: [:index, :create]
   def index
+    redirect_to root_path if @item.purchase.present? || (current_user.id == @item.user_id)
     @purchase_buyer_info = PurchaseBuyerInfo.new
-    redirect_to root_path if current_user.id == @item.user_id
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @purchase_buyer_info = PurchaseBuyerInfo.new(purchase_params)
     if @purchase_buyer_info.valid?
       pay_item
